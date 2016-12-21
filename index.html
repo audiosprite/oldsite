@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>John Fio - Composer</title>
+  <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
+  <link rel="canonical" href="http://ethanredd.com/clientPreviews/johnfio/">
+  <link rel="alternate" type="application/rss+xml" title="John Fio - Composer" href="http://ethanredd.com/clientPreviews/johnfio/feed.xml">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/stylem.css">
+  <link rel="stylesheet" href="../css/jscrollpane.css">
+  
+  
+  <link rel="apple-touch-icon" sizes="57x57" href="../images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="..">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script type="text/javascript" src="../scripts/jScrollPane.js"></script>
+  <script>
+		
+		
+		function validateEmail(email) {
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		}
+		
+		$(document).ready(function(){
+			var top = 0;
+			var quotenum = 0;
+			
+			if (!navigator.userAgent.match(/webkit/i)) {
+				 $(".wrapper").jScrollPane();
+			}
+			
+			
+			var rotatePortfolioQuotes = function(){
+				$(".portfolioquotedisplay").each(function(){
+					var quotes = $(this).find(".quotes");
+					quotes.fadeOut(200);
+					var q =quotenum % quotes.length+1;
+					var currentSelector ="#" + $(this).attr("id")+" .quotes:nth-child("+q+")";
+					$(currentSelector).fadeIn(800);
+					
+					quotenum++;
+				});
+			};
+			$(".quotes").hide();
+			setInterval(rotatePortfolioQuotes, 6000);
+			
+			
+			$(".modal").hide();
+			$("#splashname").animate({"width":"50%"}, 800,"linear");
+			$("#splashsub").animate({"width":"50%"}, 1000,"linear");
+			
+			$(".openmodal").click(function(e){
+				e.preventDefault();
+				$($(this).attr('href')).fadeIn(300);
+			});
+			
+			$(".modal-close").click(function(e){
+				e.preventDefault();
+				$(".modal").fadeOut(200);	
+			});
+			
+			$(window).scroll(function(){
+				top = $(window).scrollTop();
+				if(top > 300){
+					$("#header").addClass("headeractive");
+				}else{
+					$("#header").removeClass("headeractive");
+				}
+				
+				$(".invisible").each(function(i){
+					var t = $(this).offset().top ;
+					var tw =  $(window).height() + $(window).scrollTop();
+					if(tw > t){
+						$(this).animate({"opacity": "1"}, 500,"linear");
+					}
+				});
+			});
+			
+			$("#contactform").submit(function(e){
+				e.preventDefault();
+				
+				var valid = true;
+				
+				if($("#cname").val()==="" || $("#cemail").val()===""){
+					valid = false;
+					$("#cname").addClass("required");
+				}
+				
+				if(!validateEmail($("#cemail").val())){
+					valid = false;
+					$("#cemail").addClass("required");
+				}
+				
+				if(valid){
+					
+					$.ajax({
+						type: 'POST',
+						url: $(this).attr('action'),
+						data: $(this).serialize()
+					}).done(function(response, textStatus, jqXHR) {
+						var newdiv = $("<div class='inner'><h1>Thanks!</h1><p style='text-align:center;'>I'll get back to you as soon as possible.</p></div>").hide();
+						$("#getquote .inner").replaceWith(newdiv);
+						newdiv.fadeIn(800);					
+					});
+					
+					
+				}
+				
+			});
+			
+		});
+	</script>
+</head>
+
+
+  <body>
+      <div class="wrapper">
+        
+<div id="header">
+	<div class="inner">
+	
+		<div id="h-social" class="sociallinks">
+			<a class="socicon-bandcamp"  href="http://audiosprite.bandcamp.com"></a> 
+			<a class="socicon-soundcloud"  href="http://www.soundcloud.com/audiosprite/">
+			<a class="socicon-twitter" href="http://www.twitter.com/audiosprite"></a>
+		</div>
+		
+		<nav id="h-nav">
+			<a href="#about">About</a>
+			<a href="#events">Events</a>
+			<a href="#portfolio">Portfolio</a>
+			<a href="#getquote">Quote</a>
+			<a href="">Blog</a>
+		</nav>
+		
+	</div>				
+</div>
+
+				
+		<section class="chunk" id="splash">
+				<div class="vert-center">
+					<div class="splashstrip" id="splashname">
+						<h1>John Fio</hi>
+					</div>
+					<div class="splashstrip sociallinks" id="splashsub">
+						<div>composer | <a class="socicon-bandcamp"  href="http://audiosprite.bandcamp.com"></a> <a class="socicon-soundcloud"  href="http://www.soundcloud.com/audiosprite/"></a>  <a class="socicon-twitter" href="http://www.twitter.com/audiosprite"></a></div>
+					</div>
+				</div>
+				
+				<div style="color:white; text-align: center; bottom: 1rem; position: absolute; width:100%;">
+					<a id="splashplay" href="#modal-playbutton"><img id="splashplaybutton" src="../images/playbutton.png" alt="Play"></a>
+					<div id="#splashplay">Rachel, from Epanalepsis OST</div>
+				</div>
+		</section>
+		
+		<section class="chunk" id="about">
+			<hr class="strip topstrip">
+			<div class="inner invisible">
+				<img src="headshot.jpg" alt="John Fio" id="headshot">
+				<h1 style="text-align: left; margin-bottom: 0px;">Hi, I'm John</h1>					
+				<p>
+						Working! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor mauris quam, elementum lacinia diam ultricies quis. Sed at augue eros. In hac habitasse platea dictumst. Maecenas sed eros id velit varius semper. Ut in congue eros, id imperdiet sapien. Donec ac massa pulvinar sem viverra condimentum. Aliquam erat volutpat. Donec in mollis erat. Vestibulum egestas eget ante vel luctus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
+				</p>
+				
+				<hr>
+				<div class="row" style="text-align:left;">
+					<a href="#quote" class="buttonlink">Request Quote</a>
+					<a href="[blog]" class="buttonlink">Visit Blog</a>
+				</div>
+				
+			</div>
+		</section>
+		
+		<section class="chunk" id="events">
+			<hr class="strip topstrip">
+			<div class="inner invisible">
+				<h1>Events</h1>
+				<ul id="eventsul">
+					<div id="eventsulwrap">
+						
+						
+						<li><a style="background-image:url('../images/testimg.jpg')" class="openmodal" href="#modal-testevent"></a></li>
+						
+						<li><a style="background-image:url('../images/')" class="openmodal" href="#modal-playbutton"></a></li>
+						
+						
+					</div>
+				</ul>
+				
+				
+			</div>
+		</section>
+		
+		
+		<section class="chunk" id="portfolio">
+			<hr class="strip topstrip">
+			<div class="inner invisible">
+				
+				<h1>Portfolio</h1>
+				
+				<ul id="portfolioul">
+					
+						<li>
+							<h2>Sample Soundcloud Post</h2>
+							<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/109590826&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+<p>This is some sample text for the project description. A few sentences can go here if you want, but try to keep it short for formatting purposes.</p>
+
+							
+						</li>
+	
+					
+						<li>
+							<h2>Sample Bandcamp Post</h2>
+							<iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4010447247/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless=""><a href="http://audiosprite.bandcamp.com/album/epanalepsis">Epanalepsis by John Fio</a></iframe>
+<p>This is some sample text for the project description. A few sentences can go here if you want, but try to keep it short for formatting purposes.</p>
+
+
+							
+							<div class="row" class="quotebox">
+								<hr>
+								<div class="portfolioquote" >
+									
+									<div class="portfolioquotedisplay" id="quote-testportfolio">
+										
+										<div class="quotes">
+											<div><strong>"Kudos to the audio, which evoked memories of my favourite era of music."</strong></div> 
+											John Walker, RockPaperShotgun
+										</div>
+										
+										<div class="quotes">
+											<div><strong>"John Fio’s neat melodies add character"</strong></div> 
+											Adam Koper, Nouse
+										</div>
+										
+										<div class="quotes">
+											<div><strong>"Very diverse with some very catchy melodies."</strong></div> 
+											Chris Bowie, Mouse N Joypad
+										</div>
+										
+									</div>									
+								</div>
+							</div>
+							
+						</li>
+	
+					
+				</ul>
+				
+			</div>
+		</section>
+		
+		<section class="chunk" id="getquote">
+			<hr class="strip topstrip">
+			<div class="inner invisible">
+				<h1>Request a Quote</h1>
+				<p>
+					If you'd like to get in touch or request a quote, please fill out the form below or shoot me a message at <a href="mailto: jpfiorilla@gmail.com">jpfiorilla@gmail.com</a> and I'll get back to you as soon as possible! 
+				</p>
+				
+				<form id="contactform" action="http://formspree.io/jpfiorilla@gmail.com">
+					<div class="formrow">
+						<div class="formitem">
+							<div class="formrow">Name*</div> 
+							<input name="name" type="text" placeholder="Name (required)" id="cname">
+						</div>
+						
+						<div class="formitem">
+							<div class="formrow">Email*</div> 
+							<input name="email" type="text" placeholder="Email (required)" id="cemail">
+						</div>
+					</div>
+					
+					<div class="formrow">
+						<div class="formrow">As best you can, describe the nature of your project.</div> 
+						<textarea placeholder="Message" id="cmessage"></textarea>
+					</div>
+					
+					<div class="formrow">
+						<input type="submit" value="Send!">
+					</div>
+				</form>
+				
+			</div>
+		</section>
+		
+		
+		<div class="modal" id="modal-testevent">
+			<div class="inner">
+				<a href="" class="modal-close">x</a>
+				<h1>Test Event</h1>			
+				<div class="modal-scroll">
+					
+					<img class="modal-img" src="../images/testimg.jpg" alt="The Image">
+					
+					<p>This is a test post for the “Events” section. The “bg” is the name of an image located in the /images/ folder of the site (which will be used both for the preview tile and the top image). You can put links/embeds/html/whatever in here, and posts can be as long as you link since the modal scrolls.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur viverra dui lorem, eget consequat quam auctor sed. Suspendisse potenti. Duis nec sodales massa, vitae malesuada erat. Curabitur ornare nunc elit, eget lacinia turpis mollis scelerisque. Pellentesque ut felis ut est scelerisque feugiat. Ut sed dui lobortis, facilisis tortor eget, elementum libero. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ornare ornare justo, eu convallis ex lacinia nec. Cras pellentesque iaculis nulla, id laoreet ex auctor eget. Aliquam erat volutpat. Ut ut metus ipsum. Nulla faucibus, ipsum in semper vulputate, massa ex ornare sem, eu lobortis tellus lectus id tortor. Vivamus ex purus, tempus eget condimentum convallis, dapibus in mauris. Nullam pellentesque tempus lectus et luctus. Nam suscipit elementum risus non posuere. Quisque placerat augue ipsum, ut vehicula ipsum pulvinar a.</p>
+
+<p>Curabitur a nisi a ex tempus molestie. Cras blandit justo dui, sit amet malesuada est lacinia ac. Praesent lacinia felis elit, ut accumsan nibh mattis sit amet. Sed aliquet purus a odio aliquam suscipit. Nullam a nulla quam. Donec mollis vel ipsum et commodo. Mauris maximus ante neque, ac accumsan urna pulvinar vel. Nunc elementum massa at consectetur venenatis. Quisque lobortis urna nulla, sit amet lacinia tortor maximus sed. Mauris purus neque, luctus eget lectus sed, convallis porta metus.</p>
+
+
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal" id="modal-playbutton">
+			<div class="inner">
+				<a href="" class="modal-close">x</a>
+				<h1>Play Button Spotlight</h1>			
+				<div class="modal-scroll">
+					
+					<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/109590826&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+				</div>
+			</div>
+		</div>
+		
+		
+		<section class="chunk" id="footer">
+	<hr class="strip topstrip">
+	<div class="inner">
+		<a>Copyright 2016. All rights reserved.</a>
+		<a href="http://www.ethanredd.com" id="raddlink">Designed by Ethan Redd.</a>
+	</div>
+</section>
+	  </div>
+
+	  <script>
+	  $(document).ready(function(){
+		  var playingFeaturedTrack = false;
+			var audioElement = document.createElement('audio');
+			audioElement.setAttribute('src', '../music/John Fio - Rachel.mp3');
+			audioElement.setAttribute('autostart', '0');
+
+			$.get();
+			
+			$("#splashplay").on("click", function(){
+				playingFeaturedTrack = !playingFeaturedTrack;
+				var b = "../images/";
+				var playsrc = (playingFeaturedTrack)? b+"pausebutton.png" : b+"playbutton.png";
+				$("#splashplaybutton").attr("src", playsrc);
+				
+				if(playingFeaturedTrack){
+					audioElement.play();
+				}
+				else
+					audioElement.pause();
+			});
+
+			audioElement.addEventListener("load", function() {
+				audioElement.play();
+			}, true);
+	  });
+		
+			
+	  </script>
+	  
+	  
+  </body>
+
+</html>

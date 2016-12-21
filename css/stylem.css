@@ -1,0 +1,100 @@
+@media screen and (max-width: 650px){	
+	
+	body{
+		font-size: 17px;
+	}
+	
+	h1{
+		font-size: 2rem;
+		text-align: center;
+	}
+
+	.chunk{
+		width:100%;
+	}
+	
+	.inner{
+		width: 90%;
+		margin: auto;
+		padding: 2rem 0px;
+	}
+	
+	#header{
+		display:none;/*hack*/
+	}
+	
+	#splash{
+		background-position: center right;
+	}
+	
+	#splashname{
+		padding-right: 2rem;
+		padding-left: 5rem;
+	}
+	
+	#splashname h1{
+		font-size: 2rem;
+	}
+	
+	#splashsub {
+		font-size: 1rem;
+		padding: .2rem 2rem;
+		padding-left: 4.5rem;
+	}
+	
+	#splashplay{
+		font-size: 4rem;
+		width: 5rem;
+		height: 5rem;
+		line-height:5rem;
+		left: initial;
+		right: 2rem;
+	}
+	
+	#headshot{
+		display:block;
+		float:none; 
+		margin: 1rem auto;
+	}
+	
+	#portfolioul{
+		padding:0px;
+		margin:0px;
+	}
+	
+	#portfolioul li{
+		max-width:initial;
+		width: 90%!important;
+		padding: .5rem;
+		box-shadow:none;
+		border: none;
+		border-bottom: 2px solid #3D202F;
+		border-radius: 2px;
+	}
+	
+	.portfolioquote{
+		//font-size: 1rem!important;
+	}
+	
+	input{
+		padding: .5rem;
+	}
+	
+	.modal h1{
+		font-size: 1.3rem;
+	}
+	.modal-scroll{
+		height: 70vh!important;
+	}
+	
+	.buttonlink, input[type="submit"]{
+		width: 70%;
+	}
+	
+	#raddlink{
+		display:block;
+		float:none;
+		margin: 1.5rem auto;
+		margin-bottom: 1rem;
+	}
+}
